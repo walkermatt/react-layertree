@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+}
+
+ul.layerTree, ul.layerItem {
+    list-style: none;
+    padding-left: 1em;
+}
+
+ul.layerTree > li > input, ul.layerTree > li > label {
+    /* display: none; */
+}
