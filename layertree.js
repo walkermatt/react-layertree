@@ -32,22 +32,19 @@ var LayerItem = React.createClass({
 
 var LayerTree = React.createClass({
     getInitialState: function() {
-        return {layer: {id: "", layers: null}};
-    },
-    componentWillMount: function() {
-        this.setState({layer: syncParents(this.props.layer)});
+        return {layer: syncParents(this.props.layer)};
     },
     _onLayerChange: function(changedLayer) {
-        var layer = findLayer(this.props.layer, changedLayer.id);
+        var layer = findLayer(this.state.layer, changedLayer.id);
         layer.enabled = changedLayer.enabled;
         syncChildren(layer);
-        this.setState(syncParents(this.props.layer));
-        this.props.onChange(this.props.layer);
+        this.setState(syncParents(this.state.layer));
+        this.props.onChange(this.state.layer);
     },
     render: function() {
         return (
             <ul className="layerTree">
-                <LayerItem layer={this.props.layer} onLayerChange={this._onLayerChange} />
+                <LayerItem layer={this.state.layer} onLayerChange={this._onLayerChange} />
             </ul>
         );
     }
