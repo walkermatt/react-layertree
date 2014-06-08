@@ -1,3 +1,5 @@
+"use strict";
+
 function syncChildren(layer) {
     var enabled = layer.enabled;
     function sync(layer, enabled) {
@@ -18,7 +20,7 @@ function findLayer(layer, id) {
             return layer;
         }
         if (layer.layers) {
-            for (var i = 0; i < layer.layers.length; i++) {
+            for (var i = 0, result; i < layer.layers.length; i++) {
                 result = find(layer.layers[i], id);
                 if (result) return result;
             }
