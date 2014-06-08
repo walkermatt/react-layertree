@@ -13,3 +13,7 @@ The logic to sync the tree nodes have associated [Jasmine](http://jasmine.github
 ## License
 
 MIT
+
+## To-do
+
+* Create namespace for logic and components?
