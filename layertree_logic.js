@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * When passed a layer with children set the enabled state of the children to
+ * match that of the parent
+ */
 function syncChildren(layer) {
     var enabled = layer.enabled;
     function sync(layer, enabled) {
@@ -14,6 +18,10 @@ function syncChildren(layer) {
     return layer;
 }
 
+/**
+ * Find a layer by id in a tree of layers regardless of depth, assumes the id
+ * is unique.
+ */
 function findLayer(layer, id) {
     function find(layer, id) {
         if (layer.id === id) {
@@ -30,6 +38,10 @@ function findLayer(layer, id) {
     return find(layer, id);
 }
 
+/**
+ * Ensures that the enabled state of all parent layers is consistent with the
+ * enabled state of their children. Generally passed the root of a layer tree.
+ */
 function syncParents(layers) {
 
     /**
