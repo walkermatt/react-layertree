@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+"use strict";
+
 var LayerItem = React.createClass({
     _onChange: function() {
         var layer = this.props.layer;
