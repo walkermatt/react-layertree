@@ -1,8 +1,7 @@
-/** @jsx React.DOM */
-
 "use strict";
 
 var LayerItem = React.createClass({
+    displayName: 'LayerItem',
     _onChange: function() {
         var layer = this.props.layer;
         layer.enabled = this.refs.checkbox.getDOMNode().checked;
@@ -12,27 +11,41 @@ var LayerItem = React.createClass({
         var layerList = null;
         if (this.props.layer.layers) {
             var layerNodes = this.props.layer.layers.map(function(layer) {
-                return <LayerItem layer={layer} key={layer.id} onLayerChange={this.props.onLayerChange} />;
+                return LayerItem({layer: layer, key: layer.id, onLayerChange: this.props.onLayerChange});
             }.bind(this));
             layerList = (
-                <ul className="layerItem">
-                {layerNodes}
-                </ul>
+                React.DOM.ul({className: "layerItem"}, layerNodes)
             );
         }
         return (
-            <li className="layerItem">
-                <input type="checkbox" checked={this.props.layer.enabled}
-                    id={this.props.layer.id} key={this.props.layer.id}
-                    onChange={this._onChange} ref="checkbox" />
-                <label htmlFor={this.props.layer.id}>{this.props.layer.name}</label>
-                {layerList}
-            </li>
+            React.DOM.li(
+                {
+                    className: "layerItem"
+                },
+                React.DOM.input(
+                    {
+                        type: "checkbox",
+                        checked: this.props.layer.enabled,
+                        id: this.props.layer.id,
+                        key: this.props.layer.id,
+                        onChange: this._onChange,
+                        ref: "checkbox"
+                    }
+                ),
+                React.DOM.label(
+                    {
+                        htmlFor: this.props.layer.id
+                    },
+                    this.props.layer.name
+                ),
+                layerList
+            )
         );
     }
 });
 
 var LayerTree = React.createClass({
+    displayName: 'LayerTree',
     getInitialState: function() {
         return {layer: syncParents(this.props.layer)};
     },
@@ -45,9 +58,10 @@ var LayerTree = React.createClass({
     },
     render: function() {
         return (
-            <ul className="layerTree">
-                <LayerItem layer={this.state.layer} onLayerChange={this._onLayerChange} />
-            </ul>
+            React.DOM.ul(
+                {className: "layerTree"},
+                LayerItem({layer: this.state.layer, onLayerChange: this._onLayerChange})
+            )
         );
     }
 });
